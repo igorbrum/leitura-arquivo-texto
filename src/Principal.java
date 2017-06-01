@@ -2,47 +2,41 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import com.senac.SimpleJava.Console;
-
 public class Principal {
 	
-	String room[] = new String[31];
+	public Room room[] = new Room[31];
 	
 	public void run(){
-		Console.println("Leitura de arquivo texto");
-		
 		String nameFile = addFile();
 		readFile(nameFile);
-		showFile();
 	}
 
 	private String addFile() {
 		String nameFile = "Files/Labirinto.txt";
-		return nameFile;
-	}
-
-	private void readFile(String nameFile) {
-		try {
-			@SuppressWarnings("resource")
-			Scanner fileToRead = new Scanner(new FileInputStream(nameFile));
-			int i = 0;
-			
-			while (fileToRead.hasNext()) {
-				String string = fileToRead.nextLine();
-				room[i] = string;
-				i++;
-			}
-		} catch (FileNotFoundException fnfe) {
-			System.err.println("Sem arquivo, idiota.");
-		} catch (Exception e) {
-			System.err.println("Arquivo Invalido");
-		}
+		return nameFile;	
 	}
 	
-	private void showFile() {
-		for (int i = 0; i < room.length-1; i++) {
-			Console.println(room[i]);
+	private void readFile(String nameFile) {
+		try {
+			Scanner fileToRead = new Scanner(new FileInputStream(nameFile));
+			int i = 0;
+			while (fileToRead.hasNext()) {
+				String coordinates = fileToRead.nextLine();
+				room[i] = room(coordinates);
+				i++;
+			}
+			fileToRead.close();
+		} catch (FileNotFoundException fnfe) {
+			System.err.println("Arquivo nao encontrado");
+		} catch (Exception e) {
+			System.err.println("Erro interno do sistema");
 		}
 	}
 
+	private Room room(String coordinates) {
+		Room r = new Room();
+		r.setRoomCoordinates(coordinates.replace("  ", " "));
+		r.splitCoordinates();
+		return r;
+	}
 }
