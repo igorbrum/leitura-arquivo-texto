@@ -22,6 +22,7 @@ public class Room {
 	}
 
 	public void setRoomCoordinates(String coordinates) {
+		coordinates = coordinates.replace("  ", " ").replace(" ", ";");
 		this.roomCoordinates = coordinates;
 	}
 	
@@ -86,7 +87,7 @@ public class Room {
 	}
 	
 	public void splitCoordinates(){
-		String c[] = this.roomCoordinates.split(" ");
+		String c[] = this.roomCoordinates.split(";");
 		
 		for (int i = 0; i < c.length; i++) {
 						
