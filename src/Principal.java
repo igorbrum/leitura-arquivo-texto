@@ -35,8 +35,8 @@ public class Principal {
 
 	private Room room(String coordinates) {
 		Room r = new Room();
-		r.setRoomCoordinates(coordinates.replace("  ", " "));
-		r.splitCoordinates();
+		r.setRoomCoordinates(coordinates);
+		r.splitCoordinates();		
 		return r;
 	}
 }
